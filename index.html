@@ -1,23 +1,135 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#211b36">
+  <title>Pizza Hot | Reto del Chef</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Pizza HOT inicio"><span class="brand-mark">🍕</span><span><b>PIZZA Hot</b><small>RETO DEL CHEF</small></span></a>
+    <div class="player-chip">👤 <span id="activePlayer">Chef invitado</span></div>
+    <div class="top-stats">
+      <div class="stat"><small>PUNTOS</small><b id="score">0000</b></div>
+      <div class="stat"><small>RACHA 🔥</small><b id="streak">0</b></div>
+      <div class="stat timer-stat"><small>TIEMPO</small><b id="timer">12</b></div>
+    </div>
+  </header>
+
+  <main class="game-shell">
+    <section class="intro-row">
+      <div>
+        <p class="kicker">¡A LA COCINA, CHEF!</p>
+        <h1>Prepara el pedido <span>perfecto.</span></h1>
+        <p class="subtitle">Arrastra hasta siete ingredientes a tu pizza antes de que termine el tiempo. ¡Cada pedido es un nuevo reto!</p>
+      </div>
+      <div class="level-card"><span>🏆</span><div><small>NIVEL</small><b id="level">01</b></div></div>
+    </section>
+
+    <section class="ingredients-card">
+          <div class="ingredients-heading"><div><span class="mini-label">DESPENSA</span><h2>Ingredientes</h2></div><span class="drag-label">↗ ARRASTRA</span></div>
+          <div id="ingredientTray" class="ingredient-tray">
+            <button class="ingredient" type="button" data-id="pepperoni"><span>🍕</span><b>Pepperoni</b></button>
+            <button class="ingredient" type="button" data-id="mushroom"><span>🍄</span><b>Champiñón</b></button>
+            <button class="ingredient" type="button" data-id="olive"><span>🫒</span><b>Aceituna</b></button>
+            <button class="ingredient" type="button" data-id="pepper"><span>🫑</span><b>Pimiento</b></button>
+            <button class="ingredient" type="button" data-id="onion"><span>🧅</span><b>Cebolla</b></button>
+            <button class="ingredient" type="button" data-id="pineapple"><span>🍍</span><b>Piña</b></button>
+            <button class="ingredient" type="button" data-id="jalapeno"><span>🌶️</span><b>Jalapeño</b></button>
+            <button class="ingredient" type="button" data-id="cheese"><span>🧀</span><b>Queso</b></button>
+            <button class="ingredient" type="button" data-id="tomato"><span>🍅</span><b>Tomate</b></button>
+            <button class="ingredient" type="button" data-id="basil"><span>🌿</span><b>Albahaca</b></button>
+          </div>
+          <p class="pantry-tip">💡 <b>Tip:</b> toca un ingrediente de tu pizza si quieres quitarlo.</p>
+    </section>
+
+    <section class="game-grid">
+      <section class="kitchen-card">
+        <div class="card-topline">
+          <div><span class="mini-label">TU ESTACIÓN</span><h2>Tu pizza en preparación</h2></div>
+          <button id="resetPizza" class="text-button" type="button">↺ Reiniciar</button>
+        </div>
+        <div class="pizza-zone" id="pizzaZone">
+          <div class="table-glow"></div>
+          <div id="pizza" class="pizza" aria-label="Pizza: arrastra aquí los ingredientes">
+            <div class="crust"></div><div class="sauce"></div><div class="cheese"></div>
+            <div id="toppings" class="toppings"></div>
+            <div id="pizzaHint" class="pizza-hint"><span>👇</span><b>¡ARRASTRA AQUÍ!</b><small>Tu pizza se irá armando en vivo</small></div>
+          </div>
+          <div class="steam steam-one">✦</div><div class="steam steam-two">✦</div>
+        </div>
+        <div class="pizza-footer">
+          <div class="live-status"><span class="live-dot"></span><span id="liveMessage">Esperando al chef…</span></div>
+          <div class="topping-count"><b id="toppingCount">0</b><span>ingredientes</span></div>
+        </div>
+      </section>
+
+      <aside class="side-column">
+        <section class="order-card">
+          <div class="order-head"><span>📋 PEDIDO DEL CLIENTE</span><span class="order-number" id="orderNumber">#001</span></div>
+          <div class="customer"><div class="customer-avatar" id="customerAvatar">🧑‍🚀</div><div><b id="customerName">Capitán Tomate</b><small>¡Quiere una pizza especial!</small></div></div>
+          <p class="order-instruction">Agrega estos ingredientes:</p>
+          <div id="requirements" class="requirements"></div>
+          <div class="progress-line"><div id="progressFill"></div></div>
+          <div class="progress-caption"><span>Pedido completado</span><b id="progressText">0 / 3</b></div>
+          <button id="serveBtn" class="serve-button" type="button">¡ENTREGAR PEDIDO! <span>➜</span></button>
+          <p class="order-note">Completa todos los ingredientes del pedido para ganar puntos extra.</p>
+        </section>
+
+      </aside>
+    </section>
+
+    <section class="bottom-bar">
+      <div><span class="mini-label">MISIÓN DEL CHEF</span><b id="missionText">¡Completa tu primer pedido!</b></div>
+      <div class="bottom-badges"><span>⚡ Rápido</span><span>🎯 Preciso</span><span>🍕 Delicioso</span></div>
+    </section>
+  </main>
+
+  <div id="dragGhost" class="drag-ghost" aria-hidden="true"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+
+  <div id="startModal" class="modal">
+    <form id="startForm" class="modal-card start-card">
+      <div class="modal-icon">👨‍🍳</div>
+      <p class="kicker">BIENVENIDO A PIZZA Hot</p>
+      <h2>¿Cómo te llamas, chef?</h2>
+      <p>Escribe tu nombre para registrar tu puntuación. Al terminar, podrá jugar otra persona.</p>
+      <label class="name-label" for="playerName">NOMBRE DEL JUGADOR</label>
+      <input id="playerName" class="name-input" type="text" maxlength="18" autocomplete="off" placeholder="Escribe tu nombre..." required>
+      <button class="serve-button" type="submit">¡COMENZAR A JUGAR! <span>➜</span></button>
+      <small class="privacy-note">El marcador se guarda durante esta sesión en este dispositivo.</small>
+    </form>
+  </div>
+
+  <div id="resultModal" class="modal" hidden>
+    <div class="modal-card">
+      <div id="modalIcon" class="modal-icon">🎉</div>
+      <p class="kicker">PEDIDO TERMINADO</p>
+      <h2 id="modalTitle">¡Excelente trabajo, chef!</h2>
+      <p id="modalText">Tu cliente quedó feliz.</p>
+      <div class="earned-points"><span>+ PUNTOS</span><b id="earnedPoints">100</b></div>
+      <button id="nextBtn" class="serve-button" type="button">SIGUIENTE PEDIDO <span>➜</span></button>
+    </div>
+  </div>
+
+  <div id="gameOverModal" class="modal" hidden>
+    <div class="modal-card scoreboard-card">
+      <div class="modal-icon">🏁</div><p class="kicker">FIN DE LA PARTIDA</p>
+      <h2 id="gameOverTitle">¡Buen trabajo, chef!</h2>
+      <p id="gameOverText">Tu turno ha terminado.</p>
+      <div class="earned-points"><span>PUNTUACIÓN DE ESTE TURNO</span><b id="finalScore">0</b></div>
+      <div class="session-board">
+        <div class="session-board-head"><b>🏆 JUGADORES DE ESTA SESIÓN</b><span id="playerTotal">0 jugadores</span></div>
+        <ol id="playersList"></ol>
+      </div>
+      <button id="playAgainBtn" class="serve-button" type="button">SIGUIENTE JUGADOR <span>➜</span></button>
+      <button id="newSessionBtn" class="text-button new-session-btn" type="button">Reiniciar marcador de la sesión</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
 </html>
