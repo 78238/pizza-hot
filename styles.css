@@ -33,6 +33,13 @@ input {
 /* =====================================
    ENCABEZADO
 ===================================== */
+.brand-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
 
 .topbar {
   background: #251a30;
@@ -757,12 +764,5 @@ input {
       gap: 12px;
     }
     
-    .brand-logo {
-      width: 65px;
-      height: 65px;
-      object-fit: contain;
-      border-radius: 10px;
-      flex-shrink: 0;
-    }
   }
 }
