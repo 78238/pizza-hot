@@ -1,12 +1,13 @@
+
 /* ==========================================
-   PALETA DE COLORES PIZZA HOT (DE IMAGEN)
+   PALETA DE COLORES PIZZA HOT
 ========================================== */
 :root {
-  --color-crema: #FBD7B1;        /* Fondo general suave */
-  --color-naranja-claro: #F89F49; /* Acentos, hovers, bordes */
-  --color-naranja-intenso: #EB6B09; /* Botones principales, menú activo */
-  --color-rojo: #BF0603;         /* Header, encabezados, énfasis fuerte */
-  --color-texto-oscuro: #2b1305; /* Café muy oscuro para máxima legibilidad */
+  --color-crema: #FBD7B1;
+  --color-naranja-claro: #F89F49;
+  --color-naranja-intenso: #EB6B09;
+  --color-rojo: #BF0603;
+  --color-texto-oscuro: #2b1305;
   --color-blanco: #ffffff;
 }
 
@@ -27,7 +28,7 @@ body {
    BARRA SUPERIOR Y MENÚ
 ========================================== */
 .topbar {
-  background: linear-gradient(135deg, var(--color-rojo) 0%, #990402 100%);
+  background: linear-gradient(135deg, var(--color-rojo), #990402);
   color: var(--color-blanco);
   padding: 14px 24px;
   display: flex;
@@ -76,7 +77,7 @@ body {
   background: transparent;
   color: var(--color-crema);
   border: none;
-  padding: 9px 15px;
+  padding: 9px 13px;
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
@@ -110,7 +111,7 @@ body {
 }
 
 /* ==========================================
-   PANELES Y TARJETAS KPI (VENTAS)
+   PANELES Y VISTAS
 ========================================== */
 .view-section,
 .game-container {
@@ -185,6 +186,20 @@ body {
   font-size: 0.9rem;
 }
 
+.heading-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
 /* ==========================================
    BOTONES Y FORMULARIOS
 ========================================== */
@@ -240,7 +255,8 @@ body {
 .form-grid input,
 .form-grid select,
 .modal-content input,
-.modal-content select {
+.modal-content select,
+.client-search input {
   width: 100%;
   padding: 9px;
   margin-top: 4px;
@@ -253,22 +269,93 @@ body {
 .form-grid input:focus,
 .form-grid select:focus,
 .modal-content input:focus,
-.modal-content select:focus {
+.modal-content select:focus,
+.client-search input:focus {
   outline: none;
   border-color: var(--color-rojo);
   box-shadow: 0 0 0 2px rgba(191, 6, 3, 0.15);
 }
 
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.hidden {
+  display: none !important;
+}
+
 /* ==========================================
-   TABLAS DE VENTAS E INGREDIENTES
+   GESTIÓN DE CLIENTES
 ========================================== */
+.client-form {
+  margin-top: 16px;
+}
+
+.required-note {
+  margin-top: 10px;
+  color: #8a4a24;
+  font-size: 0.85rem;
+}
+
+.client-search {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 18px 0 12px;
+}
+
+.client-search label {
+  font-weight: 600;
+  color: var(--color-rojo);
+}
+
+.client-search input {
+  flex: 1;
+  min-width: 200px;
+  margin: 0;
+}
+
+.clients-count {
+  margin-top: 12px;
+  color: #6b442a;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.btn-edit {
+  background: var(--color-naranja-claro);
+  color: var(--color-texto-oscuro);
+}
+
+.btn-edit:hover {
+  background: var(--color-naranja-intenso);
+  color: var(--color-blanco);
+}
+
+/* ==========================================
+   TABLAS
+========================================== */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 14px;
+  border-radius: 8px;
+}
+
 .admin-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 14px;
   font-size: 0.92rem;
-  border-radius: 8px;
-  overflow: hidden;
+  background: var(--color-blanco);
 }
 
 .admin-table th {
@@ -277,6 +364,7 @@ body {
   padding: 12px 10px;
   text-align: left;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .admin-table td {
@@ -319,23 +407,13 @@ body {
   font-weight: 600;
 }
 
-.btn-edit {
-  background: var(--color-naranja-claro);
-  color: var(--color-texto-oscuro);
-}
-
-.btn-edit:hover {
-  background: var(--color-naranja-intenso);
-  color: var(--color-blanco);
-}
-
 .btn-toggle {
   background: var(--color-rojo);
   color: var(--color-blanco);
 }
 
 /* ==========================================
-   ELEMENTOS DEL JUEGO DE COCINA
+   JUEGO DE COCINA
 ========================================== */
 .work-area {
   display: grid;
@@ -403,10 +481,16 @@ body {
 
 .pizza-surface {
   position: relative;
-  width: 280px;
-  height: 280px;
+  width: min(280px, 100%);
+  aspect-ratio: 1;
   margin: 14px auto;
   touch-action: none;
+}
+
+#pizzaSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 #toppingsLayer {
@@ -462,7 +546,9 @@ body {
   border-radius: 14px;
   padding: 24px;
   width: 100%;
-  max-width: 440px;
+  max-width: 460px;
+  max-height: 90vh;
+  overflow-y: auto;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 }
 
@@ -476,9 +562,69 @@ body {
   background: #fff9f2;
   border-radius: 8px;
   padding: 12px;
+  margin-bottom: 12px;
 }
 
 .modal-content legend {
   color: var(--color-rojo);
   padding: 0 6px;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.modal-form input {
+  margin-bottom: 8px;
+}
+
+.sale-fields {
+  display: flex;
+  gap: 10px;
+}
+
+.sale-fields label {
+  flex: 1;
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+@media (max-width: 650px) {
+  .topbar {
+    justify-content: center;
+  }
+
+  .main-nav {
+    justify-content: center;
+  }
+
+  .player-info {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .client-search {
+    align-items: stretch;
+  }
+
+  .client-search input {
+    width: 100%;
+    flex-basis: 100%;
+  }
+
+  .form-actions {
+    justify-content: stretch;
+  }
+
+  .form-actions button {
+    flex: 1;
+  }
+
+  .sale-fields {
+    flex-direction: column;
+  }
 }
